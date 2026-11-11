@@ -1,0 +1,10 @@
+# Web Client
+Layering (each layer only depends on the ones above it):
+1. **Python engine** — model, validation, tools, meshes. Authoritative.
+2. **`packages/app-core`** (TypeScript, no framework) — API client + runtime guards, scene buffers, orbit/ortho camera + picking, selection, inspector field/edit logic, store (serialised requests, revision conflicts, failed edits never change state). 44 tests.
+3. **`apps/web-lite`** — dependency-free reference UI (DOM + Canvas 2D software renderer), bundled with esbuild and served by the Python server. **Browser-tested** (14 Playwright tests).
+4. **`apps/web`** — the Next.js + Three.js application. Same store, same inspector logic, Three.js viewport. **Written but never built or run** (no network here to install next/react/three); only syntax-checked. Expect first-run fixes. Cross-origin use needs `run_server.py --origin http://localhost:3000`, untested in a real browser.
+
+Run the tested client: `python3 services/core/run_server.py` and open the printed URL (the token is in the fragment). Rebuild after editing: `cd apps/web-lite && npm run build` (needs esbuild).
+**Verified behaviours (browser):** token hidden from URL; canvas renders; click picks walls and openings (3D and plan); inspector edits go through the engine; invalid input rejected locally with no request; engine rejections shown and state unchanged; undo/redo via buttons and Ctrl+Z / Ctrl+Shift+Z; delete + undo; shift multi-select; orbit leaves plan; import (valid / engine-invalid / garbage / wrapped file); wrong token → connect form; hostile names inert (no HTML injection); concurrent-edit conflict reload; DXF/OBJ downloads; panel collapse; dark theme.
+**Known gaps:** the software renderer is a painter's algorithm (fine for small models, replaced by Three.js in apps/web); plan view is an orthographic top view, not yet a section cut at ~1.2 m, so openings are hidden by wall heads; no wall/opening creation tools in the UI yet (editing and deleting only); no touch gestures beyond basic pointer events; accessibility is partial (labels, roles, keyboard shortcuts) and has not been audited with a screen reader.

@@ -1,0 +1,8 @@
+__pycache__/
+node_modules/
+.next/
+export_samples/
+*.tsbuildinfo
+.DS_Store
+Thumbs.db
+.env*

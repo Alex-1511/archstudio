@@ -1,0 +1,8 @@
+html, body { height: 100%; margin: 0; font: 14px/1.4 system-ui, sans-serif; }
+.shell { height: 100%; display: flex; flex-direction: column; }
+.shell main { flex: 1; min-height: 0; display: grid; grid-template-columns: 260px 1fr 300px; }
+.shell aside { overflow: auto; padding: 10px; border-inline: 1px solid #d9d6cf; }
+.shell .viewport { position: relative; }
+.tree-list ul { list-style: none; padding-left: 14px; margin: 0; } [role=treeitem] { all: unset; cursor: pointer; padding: 2px 6px; display: block; }
+[role=treeitem][aria-current=true] { background: #d9622b; color: #fff; }
+[role=alert] { background: #fde7e5; padding: 6px 12px; }

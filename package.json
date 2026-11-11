@@ -1,0 +1,9 @@
+{
+  "name": "archstudio",
+  "private": true,
+  "workspaces": ["packages/*", "apps/*"],
+  "scripts": {
+    "check": "sh tools/check_all.sh",
+    "serve": "python3 services/core/run_server.py"
+  }
+}

@@ -1,0 +1,51 @@
+:root {
+  --bg: #f4f3f0; --panel: #ffffff; --line: #d9d6cf; --text: #1f1e1c; --muted: #6c6a65; --accent: #d9622b; --accent-text: #ffffff;
+  --canvas: #ecebe7; --grid: #d3d0c8; --wall: #cfc9bd; --door: #b7742f; --window: #3f8fc4; --danger: #b3261e; --focus: #2563eb;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root { --bg: #151514; --panel: #1f1f1d; --line: #353431; --text: #ecebe7; --muted: #9b988f; --accent: #ef7c47; --accent-text: #1a1a18;
+          --canvas: #1a1a18; --grid: #2e2d2a; --wall: #8e887c; --door: #d99149; --window: #5aaee0; --danger: #ff8a80; --focus: #7aa2ff; }
+}
+* { box-sizing: border-box; }
+html, body { height: 100%; margin: 0; }
+body { background: var(--bg); color: var(--text); font: 14px/1.4 system-ui, -apple-system, "Segoe UI", sans-serif; }
+#app { height: 100%; display: flex; flex-direction: column; }
+#app > main { flex: 1 1 0; min-height: 0; }
+#app > header, #app > .banner, #app > footer { flex: 0 0 auto; }
+button, input, select { font: inherit; color: inherit; }
+button { background: var(--panel); border: 1px solid var(--line); border-radius: 6px; padding: 4px 10px; cursor: pointer; }
+button:hover:not(:disabled) { border-color: var(--accent); }
+button:disabled { opacity: .45; cursor: default; }
+button[aria-pressed="true"] { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+header { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; padding: 8px 12px; background: var(--panel); border-bottom: 1px solid var(--line); }
+header h1 { font-size: 15px; margin: 0 8px 0 0; letter-spacing: .02em; }
+header .sep { width: 1px; height: 20px; background: var(--line); }
+header .spacer { flex: 1; }
+.banner { padding: 6px 12px; background: color-mix(in srgb, var(--danger) 14%, var(--panel)); border-bottom: 1px solid var(--danger); display: flex; gap: 8px; align-items: center; }
+.banner[hidden] { display: none; }
+.banner span { flex: 1; }
+main { display: grid; grid-template-columns: var(--left, 260px) 1fr var(--right, 300px); min-height: 0; }
+main.collapse-left { --left: 0px; } main.collapse-right { --right: 0px; }
+aside.left { grid-column: 1; } .viewport { grid-column: 2; } aside.right { grid-column: 3; }   /* explicit: a hidden aside must not shift the viewport into a 0px column */
+aside { background: var(--panel); overflow: auto; min-width: 0; padding: 10px; }
+aside.left { border-right: 1px solid var(--line); } aside.right { border-left: 1px solid var(--line); }
+main.collapse-left aside.left, main.collapse-right aside.right { display: none; }
+aside h2 { font-size: 11px; text-transform: uppercase; letter-spacing: .08em; color: var(--muted); margin: 0 0 8px; }
+.viewport { position: relative; min-width: 0; min-height: 0; background: var(--canvas); }
+.viewport canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; cursor: grab; }
+.viewport .hint { position: absolute; left: 10px; bottom: 8px; color: var(--muted); font-size: 12px; pointer-events: none; }
+ul.tree, ul.tree ul { list-style: none; margin: 0; padding-left: 14px; } ul.tree { padding-left: 0; }
+.tree button { width: 100%; text-align: left; border: 0; background: transparent; padding: 3px 6px; border-radius: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.tree button[aria-current="true"] { background: var(--accent); color: var(--accent-text); }
+dl.fields { display: grid; grid-template-columns: 1fr 1.2fr; gap: 6px 8px; margin: 0 0 12px; align-items: center; }
+dl.fields dt { color: var(--muted); } dl.fields dd { margin: 0; min-width: 0; overflow-wrap: anywhere; }
+dl.fields input, dl.fields select { width: 100%; padding: 3px 6px; background: var(--bg); border: 1px solid var(--line); border-radius: 4px; }
+dl.fields input[aria-invalid="true"] { border-color: var(--danger); }
+.unit { color: var(--muted); font-size: 12px; }
+footer { padding: 4px 12px; background: var(--panel); border-top: 1px solid var(--line); color: var(--muted); font-size: 12px; display: flex; gap: 16px; }
+.empty { color: var(--muted); }
+.connect { max-width: 420px; margin: 12vh auto; padding: 20px; background: var(--panel); border: 1px solid var(--line); border-radius: 10px; display: grid; gap: 10px; }
+.connect input { padding: 6px 8px; background: var(--bg); border: 1px solid var(--line); border-radius: 6px; }
+.visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }

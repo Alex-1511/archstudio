@@ -1,0 +1,12 @@
+{
+  "name": "@archstudio/web-lite",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Dependency-free reference client (DOM + Canvas 2D). Runs today with only esbuild; the Next.js/Three.js app in apps/web reuses the same app-core.",
+  "scripts": {
+    "typecheck": "tsc -p tsconfig.json",
+    "build": "esbuild src/main.ts --bundle --format=esm --target=es2022 --minify --outfile=dist/app.js && node -e \"const fs=require('fs');for (const f of ['index.html','styles.css']) fs.copyFileSync(f,'dist/'+f)\""
+  },
+  "devDependencies": { "typescript": "^5.6.0", "esbuild": "^0.25.0", "@types/node": "^22.0.0" }
+}
